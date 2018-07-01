@@ -1,4 +1,4 @@
-#include <cassert>
+﻿#include <cassert>
 #include <QDebug>
 #include <QString>
 #include "common.h"

@@ -1,5 +1,11 @@
-#ifndef COMMON_H
+﻿#ifndef COMMON_H
 #define COMMON_H
+
+#ifdef __MINGW32__
+#define QSTRING_FROM(strlit) (QString::fromUtf8(strlit))
+#else
+#define QSTRING_FROM(strlit) (QString::fromLocal8Bit(strlit))
+#endif
 
 #include <QColor>
 #include <array>
@@ -27,5 +33,18 @@ const std::array<QColor, PLAYERS + 1> PLAYER_COLOR {
         QColor(0xf0, 0xe6, 0x8c), // yellow
     }
 };
+
+#ifdef ANDROID
+#include <sstream>
+// fallback
+namespace std {
+template <typename T>
+std::string to_string(T value) {
+    std::ostringstream ss;
+    ss << value;
+    return ss.str();
+}
+}
+#endif
 
 #endif // COMMON_H

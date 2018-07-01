@@ -1,9 +1,10 @@
-#include "common.h"
+﻿#include "common.h"
 #include "cell.h"
 #include "field.h"
 
 #include <QDebug>
 #include <random>
+#include <string>
 #include <ctime>
 #include <cmath>
 #include <cassert>
@@ -56,10 +57,10 @@ void Field::update_message() {
     QString msg;
     State state;
     if (turn_left > 0) {
-        msg = QString::fromUtf8("残り %1 ターンです！現在は %2P の手番です。").arg(turn_left).arg(current_player);
+        msg = QSTRING_FROM("残り %1 ターンです！現在は %2P の手番です。").arg(turn_left).arg(current_player);
         state = current_player;
     } else {
-        msg = QString::fromUtf8("ゲームは決着しました。メニューから新規ゲームを始めてください。");
+        msg = QSTRING_FROM("ゲームは決着しました。メニューから新規ゲームを始めてください。");
         state = UNOWNED;
     }
     current_player_label->setText(msg);
@@ -119,7 +120,7 @@ void Field::clicked(int y, int x) {
     if (turn_left == 0) return;
     qDebug() << "clicked for " << current_player;
     if (!is_valid(y, x)) {
-        status_bar->showMessage(QString::fromUtf8("無効な場所です！"), 1000);
+        status_bar->showMessage(QSTRING_FROM("無効な場所です！"), 1000);
         return;
     }
     field_cells[y][x]->set_state(current_player);
